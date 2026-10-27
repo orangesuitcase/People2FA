@@ -6,11 +6,12 @@ Inspired by [Vouch](https://ericscalibur.github.io/Vouch/) — same idea of prov
 
 ## Use it
 
-**On the web (GitHub Pages):**  
-https://orangesuitcase.github.io/People2FA/
+**Download one file**  
+Save [`index.html`](https://github.com/orangesuitcase/People2FA/raw/main/index.html) and open it in any browser. No install, no build, no server — everything runs locally in that file.
 
-**Or download one file:**  
-save [`index.html`](https://github.com/orangesuitcase/People2FA/raw/main/index.html) and open it in any browser. No install, no build, no server — everything runs locally in that file.
+**Or host on GitHub Pages**  
+In the repo: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main` / `/ (root)` → Save**.  
+Then open https://orangesuitcase.github.io/People2FA/
 
 ## What it does
 
