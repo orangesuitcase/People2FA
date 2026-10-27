@@ -439,7 +439,7 @@ input[type="text"]::placeholder {
           name="both-names"
           type="text"
           maxlength="64"
-          placeholder="Jamie Vicky"
+          placeholder="Romeo Juliet"
           required
           autofocus
         />
@@ -2850,7 +2850,7 @@ var qrcode = function() {
 
   function sanitizeLabel(raw) {
     // Strip spaces/symbols and uppercase so labels stay URI-safe and readable.
-    // Example: "Jamie&Vicky" → "JAMIEVICKY"
+    // Example: "Romeo&Juliet" → "ROMEOJULIET"
     return String(raw || "")
       .toUpperCase()
       .replace(/[^A-Z0-9]/g, "")
@@ -2923,7 +2923,7 @@ var qrcode = function() {
 
       if (!label || label.length < 2) {
         if (error) {
-          error.textContent = "Enter both names, like Jamie Vicky.";
+          error.textContent = "Enter both names, like Romeo Juliet.";
           error.classList.add("show");
         }
         input.focus();

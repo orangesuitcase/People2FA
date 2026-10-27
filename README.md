@@ -15,15 +15,15 @@ Then open https://orangesuitcase.github.io/People2FA/
 
 ## What it does
 
-1. Enter **Both Names** (for example `Jamie Vicky` or `Jamie&Vicky`).
+1. Enter **Both Names** (for example `Romeo Juliet` or `Romeo&Juliet`).
 2. Tap **Generate**.
-3. Names are sanitized to uppercase letters/digits only (`Jamie&Vicky` → `JAMIEVICKY`).
+3. Names are sanitized to uppercase letters/digits only (`Romeo&Juliet` → `ROMEOJULIET`).
 4. Get an `otpauth://totp/...` URI, a QR code, a tap-to-add link, and backup details.
 
 Example output:
 
 ```text
-otpauth://totp/JAMIEVICKY?secret=JBSWY3DPEHPK3PXP&issuer=People2FA&algorithm=SHA1&digits=6&period=30
+otpauth://totp/ROMEOJULIET?secret=JBSWY3DPEHPK3PXP&issuer=People2FA&algorithm=SHA1&digits=6&period=30
 ```
 
 Secrets are short/medium (80-bit / 16 Base32 characters), generated in the browser with `crypto.getRandomValues`. Nothing is uploaded.
