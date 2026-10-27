@@ -242,21 +242,24 @@ input[type="text"]::placeholder {
 }
 
 .qr-stage {
-  display: grid;
-  place-items: center;
-  margin: 0 0 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.85rem 0 0;
   padding: 1.25rem;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(244, 248, 245, 0.95));
   border: 1px solid var(--line);
   border-radius: calc(var(--radius) + 6px);
-  box-shadow: var(--shadow);
-  animation: pop 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both;
 }
 
 #qr {
-  width: min(100%, 260px);
-  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 #qr table {
@@ -265,8 +268,8 @@ input[type="text"]::placeholder {
 }
 
 #qr td {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   padding: 0;
 }
 
@@ -442,67 +445,50 @@ input[type="text"]::placeholder {
     <main class="shell" id="view-result" hidden>
       <h1 class="brand">People<span>2FA</span></h1>
       <p class="lede">
-        Pair for <strong id="pair-names">…</strong>. Scan together in person, then
-        write down the backup details.
+        Pair for <strong id="pair-names">…</strong>. Add it on your phone, then share
+        the QR with the other person in person.
       </p>
-
-      <div class="qr-stage" aria-label="QR code for authenticator setup">
-        <div id="qr"></div>
-      </div>
 
       <div class="stack">
         <section class="block">
-          <h2>Add on your phone</h2>
+          <h2>Add it to your phone</h2>
           <p>
-            Open this page on your phone and tap the link, or scan the QR with an
-            authenticator that is not signed into a cloud account.
+            Tap below to open your authenticator, or enter the title and secret by hand.
           </p>
           <div class="actions">
-            <a class="btn-link" id="add-link" href="#">Open in authenticator</a>
-            <button class="btn btn-secondary" type="button" id="copy-uri">
-              Copy link
-            </button>
+            <a class="btn-link" id="add-link" href="#">Open Authenticator</a>
           </div>
-          <p class="mono" id="pair-uri" style="margin-top: 0.9rem"></p>
-        </section>
-
-        <section class="block">
-          <h2>Backup details</h2>
-          <p>
-            Record these offline — a paper note you both keep. Do not paste them into
-            chat apps.
-          </p>
-          <dl class="detail-grid">
+          <dl class="detail-grid" style="margin-top: 1rem">
             <div class="detail">
-              <dt>Label</dt>
+              <dt>Title</dt>
               <dd id="pair-label"></dd>
             </div>
             <div class="detail">
               <dt>Secret</dt>
               <dd id="pair-secret"></dd>
             </div>
-            <div class="detail">
-              <dt>Type</dt>
-              <dd>TOTP · SHA1 · 6 digits · 30s</dd>
-            </div>
           </dl>
+        </section>
+
+        <section class="block">
+          <h2>Add it to other phones</h2>
+          <p>Scan this QR together in person.</p>
+          <div class="qr-stage" aria-label="QR code for authenticator setup">
+            <div id="qr"></div>
+          </div>
         </section>
 
         <section class="block warn">
           <h2>Keep this offline</h2>
           <ul>
             <li>
-              Prefer <strong>Google Authenticator without signing in</strong>, or
+              Use <strong>Google Authenticator without signing in</strong>, or
               another app that does not back codes up to iCloud, Google, or a password
               manager by default.
             </li>
+            <li>Set this up in person, not remotely.</li>
             <li>
-              Do not send this QR, secret, or otpauth link over WhatsApp, SMS, email,
-              or other online apps. Share it in person.
-            </li>
-            <li>
-              Write the secret on paper and store it somewhere only you two can reach.
-              If either phone is lost, that paper is how you recover.
+              Write the secret on paper or somewhere super safe from hackers and AI.
             </li>
             <li>
               Anyone with the secret can generate the same codes. Treat it like a
@@ -2901,13 +2887,11 @@ var qrcode = function() {
   function fillResult(pair) {
     var labelEl = document.getElementById("pair-label");
     var secretEl = document.getElementById("pair-secret");
-    var uriEl = document.getElementById("pair-uri");
     var addLink = document.getElementById("add-link");
     var namesEl = document.getElementById("pair-names");
 
     if (labelEl) labelEl.textContent = pair.label;
     if (secretEl) secretEl.textContent = pair.secret;
-    if (uriEl) uriEl.textContent = pair.otpauth;
     if (namesEl) namesEl.textContent = pair.names || pair.label;
     if (addLink) {
       addLink.href = pair.otpauth;
@@ -2977,38 +2961,17 @@ var qrcode = function() {
     sessionStorage.removeItem(STORAGE_KEY);
     var input = document.getElementById("both-names");
     var error = document.getElementById("form-error");
-    var copyBtn = document.getElementById("copy-uri");
     if (input) input.value = "";
     if (error) {
       error.textContent = "";
       error.classList.remove("show");
     }
-    if (copyBtn) copyBtn.textContent = "Copy link";
     showView("landing");
     if (input) input.focus();
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     onLanding();
-
-    var copyBtn = document.getElementById("copy-uri");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", function () {
-        var pair = loadPair();
-        if (!pair) return;
-        navigator.clipboard.writeText(pair.otpauth).then(
-          function () {
-            copyBtn.textContent = "Copied";
-            setTimeout(function () {
-              copyBtn.textContent = "Copy link";
-            }, 1600);
-          },
-          function () {
-            copyBtn.textContent = "Copy failed";
-          }
-        );
-      });
-    }
 
     var again = document.getElementById("generate-another");
     if (again) {
