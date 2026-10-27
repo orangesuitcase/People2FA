@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Your pair · People2FA</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Young+Serif&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-result" data-page="result">
+    <main class="shell">
+      <h1 class="brand">People<span>2FA</span></h1>
+      <p class="lede">
+        Pair for <strong id="pair-names">…</strong>. Scan together in person, then
+        write down the backup details.
+      </p>
+
+      <div class="qr-stage" aria-label="QR code for authenticator setup">
+        <div id="qr"></div>
+      </div>
+
+      <div class="stack">
+        <section class="block">
+          <h2>Add on your phone</h2>
+          <p>
+            Open this page on your phone and tap the link, or scan the QR with an
+            authenticator that is not signed into a cloud account.
+          </p>
+          <div class="actions">
+            <a class="btn-link" id="add-link" href="#">Open in authenticator</a>
+            <button class="btn btn-secondary" type="button" id="copy-uri">
+              Copy link
+            </button>
+          </div>
+          <p class="mono" id="pair-uri" style="margin-top: 0.9rem"></p>
+        </section>
+
+        <section class="block">
+          <h2>Backup details</h2>
+          <p>
+            Record these offline — a paper note you both keep. Do not paste them into
+            chat apps.
+          </p>
+          <dl class="detail-grid">
+            <div class="detail">
+              <dt>Label</dt>
+              <dd id="pair-label"></dd>
+            </div>
+            <div class="detail">
+              <dt>Secret</dt>
+              <dd id="pair-secret"></dd>
+            </div>
+            <div class="detail">
+              <dt>Type</dt>
+              <dd>TOTP · SHA1 · 6 digits · 30s</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="block warn">
+          <h2>Keep this offline</h2>
+          <ul>
+            <li>
+              Prefer <strong>Google Authenticator without signing in</strong>, or
+              another app that does not back codes up to iCloud, Google, or a password
+              manager by default.
+            </li>
+            <li>
+              Do not send this QR, secret, or otpauth link over WhatsApp, SMS, email,
+              or other online apps. Share it in person.
+            </li>
+            <li>
+              Write the secret on paper and store it somewhere only you two can reach.
+              If either phone is lost, that paper is how you recover.
+            </li>
+            <li>
+              Anyone with the secret can generate the same codes. Treat it like a
+              shared password.
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="footer-nav">
+        <a class="btn btn-secondary" href="index.html">Generate another</a>
+      </div>
+    </main>
+    <script src="assets/qrcode-generator.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

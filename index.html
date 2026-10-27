@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="People2FA — share a simple TOTP code with someone you trust. No account, no server."
+    />
+    <title>People2FA</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Young+Serif&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="landing">
+    <main class="shell">
+      <h1 class="brand">People<span>2FA</span></h1>
+      <p class="lede">
+        A shared authenticator code for two people. Generate once, add it on both
+        phones, and use the rotating digits whenever you need to prove it’s really them.
+      </p>
+
+      <form class="panel" id="generate-form" autocomplete="off">
+        <label for="both-names">Both Names</label>
+        <input
+          id="both-names"
+          name="both-names"
+          type="text"
+          maxlength="64"
+          placeholder="Jamie Vicky"
+          required
+          autofocus
+        />
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Generate</button>
+        </div>
+        <p class="error" id="form-error" role="alert"></p>
+        <p class="hint">
+          Everything stays in this browser. No account, no server, no cloud sync.
+        </p>
+      </form>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
